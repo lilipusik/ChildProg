@@ -1,0 +1,23 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main {
+  align-self: center;
+}
+
+img {
+  height: 90vh;
+}
+
+a {
+  margin-left: 3%;
+  text-decoration: none;
+  color: black;
+}

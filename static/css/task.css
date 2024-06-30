@@ -1,0 +1,77 @@
+
+.container-form {
+    width: 100%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.form-left {
+    width: 20%;
+}
+
+.form-right {
+    width: 75%;
+}
+
+label {
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 20px; /* Add spacing similar to the textarea */
+}
+
+/* Adjusted the CodeMirror textarea */
+.CodeMirror {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 20px;
+    height: auto;
+}
+
+button.submit-button {
+    padding: 10px 15px;
+    background-color: #73528d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button.submit-button:hover {
+    background-color: #73528d;
+}
+
+.result-container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

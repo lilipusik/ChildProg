@@ -1,0 +1,168 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  display: flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8%;
+  z-index:1000;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  color: black;
+}
+
+.header nav ul li {
+  position: relative;
+  float: left;
+}
+
+.header nav ul li a {
+  padding: 15px;
+  color: #000;
+  font-size: 16px;
+  display: block;
+}
+
+nav ul li ul {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 180px;
+  background-color: white;
+  display: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 10px 0;
+}
+nav ul li ul li {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+nav ul li:hover > ul {
+  display: initial;
+}
+
+nav ul li ul li:hover {
+  background: #e4e6ec;
+}
+
+/* Стили для формы поиска */
+#search-form {
+  display: flex;
+  align-items: center;
+}
+
+#search-input {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+#search-form button {
+  padding: 5px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+
+#search-form button:hover {
+  background-color: #555;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  color: black;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li {
+  position: relative;
+  float: left;
+}
+
+.nav-links li a {
+  padding: 15px;
+  color: #000;
+  font-size: 16px;
+  display: block;
+}
+
+nav ul li ul {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 180px;
+  background-color: white;
+  display: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 10px 0;
+}
+
+nav ul li ul li {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+nav ul li:hover > ul {
+  display: initial;
+}
+
+nav ul li ul li:hover {
+  background: #e4e6ec;
+}
+.main {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.main img {
+  width: 30%;
+  height: 80%;
+  margin-bottom: 20px;
+}
+
+.message h1 {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.message p {
+  font-size: 1.5rem;
+  color: #777;
+}

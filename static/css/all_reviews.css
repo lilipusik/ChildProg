@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: flex-end; /* Align content to the right */
+    min-height: 100vh; /* Full height of viewport */
+    background: url('../img/reviews_background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.background {
+    flex: 0 0 40%; /* Increase width of the image block */
+    max-width: 40%;
+    margin-right: 40px; /* Add margin to create distance from the form */
+}
+
+.girl-image {
+    max-width: 80%;
+    height: auto;
+    display: block;
+    margin: 0 auto; /* Center align the image */
+}
+
+.reviews-form {
+    position: relative; /* To position the back button within the form */
+    width: 90%; /* Adjust width as needed */
+    max-width: 800px; /* Optional: Set a maximum width */
+    height: 100%; /* Take up full height of .container */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: transparent; /* Semi-transparent white background */
+    border-radius: 10px;
+    text-align: center;
+    overflow: auto; /* Allow overflow if content exceeds height */
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.reviews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-height: 100%; /* Ensure reviews take full height of .reviews-form */
+    overflow-y: auto; /* Enable scrolling for reviews if they exceed height */
+}
+
+.review {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    word-wrap: break-word; /* Ensure long words break to fit */
+    overflow: hidden; /* Hide overflow content */
+}
+
+.review p {
+    margin: 0 0 10px;
+}
+
+.author {
+    font-weight: bold;
+}
+
+.review-date {
+    font-weight: normal;
+    font-size: 12px;
+    color: gray;
+    margin-left: 10px;
+}
+
+.stars span {
+    font-size: 20px;
+    color: #f39c12;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #bb93d9;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 60px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #bb93d9;
+}

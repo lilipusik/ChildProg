@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'css/catalog.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <title>Infinity code</title>
+</head>
+<body>
+  <div class="container">
+    <div class="header" style="background-image: url('{% static 'img/login/figure_blure.png' %}')">
+      <a href="{% url 'index' %}" class="logo">INFINITY CODE</a>
+      <nav>
+        <ul>
+          <li><a href="{% url 'catalog' %}"><i class="fas fa-book"></i> Каталог</a></li>
+          {% if user.is_authenticated %}
+          <li>
+            <a href="#"><i class="fas fa-bars"></i> Меню</a>
+            <ul>
+              <li><a href="{% url 'users:profile' %}"><i class="fas fa-user"></i> Профиль</a></li>
+              {% if user.is_superuser %}
+              <li><a href="{% url 'admin:index' %}"><i class="fas fa-cogs"></i> Админ-панель</a></li>
+              {% endif %}
+              <li><a href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a></li>
+            </ul>
+          </li>
+          {% endif %}
+          {% if not user.is_authenticated %}
+          <li><a href="{% url 'users:login' %}"><i class="fas fa-sign-in-alt"></i> Войти</a></li>
+          {% endif %}
+        </ul>
+        <form id="search-form">
+          <input type="text" id="search-input" placeholder="Поиск..." />
+          <button type="submit">Поиск</button>
+        </form>
+      </nav>
+    </div>
+    <div class="main">
+      <div class="product-grid">
+        {% for product in courses %}
+        <div class="product-card">
+          <a href="{% url 'course_detail' product.id %}">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+            <h2>{{ product.name }}</h2>
+            <p>{{ product.description }}</p>
+          </a>
+          {% if user.is_authenticated %}
+          <button class="like-button{% if product.id in liked_courses %} liked{% endif %}" data-course-id="{{ product.id }}">
+            <i class="fas fa-heart"></i>
+          </button>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <script src="{% static 'js/search.js' %}"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const likeButtons = document.querySelectorAll('.like-button');
+      
+      likeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const courseId = this.getAttribute('data-course-id');
+          const url = `{% url 'toggle_like' 0 %}`.replace('0', courseId);
+
+          fetch(url, {
+            method: 'POST',
+            headers: {
+              'X-CSRFToken': '{{ csrf_token }}',
+            },
+            credentials: 'same-origin',
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.liked) {
+              this.classList.add('liked');
+            } else {
+              this.classList.remove('liked');
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

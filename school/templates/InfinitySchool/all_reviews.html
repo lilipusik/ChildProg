@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы пользователей</title>
+    <link rel="stylesheet" href="{% static 'css/all_reviews.css' %}">
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="window.location.href='/'">⤶</button>
+        <div class="background">
+            <img class="girl-image" src="{% static 'img/girl_with_hearts.png' %}" alt="Девочка с сердечками">
+        </div>
+        <div class="reviews-form">
+            <h1>Что о нас говорят пользователи?</h1>
+            <div class="reviews">
+                {% for review in reviews %}
+                <div class="review" data-rating="{{ review.rating }}">
+                    <p class="author">{{ review.user.username }} <span class="review-date">{{ review.create_date|date:"d.m.Y" }}</span></p>
+                    <p>{{ review.review }}</p>
+                    <div class="stars">
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const reviews = document.querySelectorAll('.review');
+            reviews.forEach(review => {
+                const rating = parseInt(review.dataset.rating);
+                const starsContainer = review.querySelector('.stars');
+                
+                // Очищаем контейнер со звездами
+                starsContainer.innerHTML = '';
+                
+                // Добавляем звезды в соответствии с рейтингом
+                for (let i = 0; i < rating; i++) {
+                    const star = document.createElement('span');
+                    star.textContent = '★'; // Используем закрашенную звезду
+                    star.style.color = '#f39c12'; // Желтый цвет для закрашенных звезд
+                    starsContainer.appendChild(star);
+                }
+                
+                // Добавляем пустые звезды (если нужно)
+                for (let i = rating; i < 5; i++) {
+                    const star = document.createElement('span');
+                    star.textContent = '☆';
+                    star.style.color = '#f39c12'; // Желтый цвет для незакрашенных звезд
+                    starsContainer.appendChild(star);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

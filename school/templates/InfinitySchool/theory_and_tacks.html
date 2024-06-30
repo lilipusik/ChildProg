@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/theory_and_tasks.css' %}">
+    <title>Теория и практические задачи</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Теория и практические задачи для курса: {{ course.name }}</h1>
+        {% for theory in theories %}
+            <h2>{{ theory.title }}</h2>
+            <p>{{ theory.theory }}</p>
+            <h3>Практические задачи:</h3>
+            <ul>
+                {% for task in theory.tasks.all %}
+                    <li>{{ task.description }} (Сложность: {{ task.difficulty }})</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+</body>
+</html>

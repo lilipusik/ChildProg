@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курс в разработке</title>
+    <link rel="stylesheet" href="{% static 'css/error_course.css' %}">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+<body>
+    <div class="header" style="background-image: url('{% static 'img/login/figure_blure.png' %}')">
+      <a href="{% url 'index' %}" class="logo">INFINITY CODE</a>
+      <nav>
+        <ul>
+          <li><a href="{% url 'catalog' %}"><i class="fas fa-book"></i> Каталог</a></li>
+          {% if user.is_authenticated %}
+          <li>
+            <a href="#"><i class="fas fa-bars"></i> Меню</a>
+            <ul>
+              <li><a href="{% url 'users:profile' %}"><i class="fas fa-user"></i> Профиль</a></li>
+              {% if user.is_superuser %}
+              <li><a href="{% url 'admin:index' %}"><i class="fas fa-cogs"></i> Админ-панель</a></li>
+              {% endif %}
+              <li><a href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a></li>
+            </ul>
+          </li>
+          {% endif %}
+          {% if not user.is_authenticated %}
+          <li><a href="{% url 'users:login' %}"><i class="fas fa-sign-in-alt"></i> Войти</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+    <div class="main">
+        <img src="{% static 'img/image.png' %}" alt="Course in development image">
+        <div class="message">
+            <h1>Курс находится в разработке</h1>
+            <p>Пожалуйста, зайдите позже.</p>
+        </div>
+    </div>
+</body>
+</html>

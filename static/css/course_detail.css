@@ -1,0 +1,363 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #f0f2f5;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  display: flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8%;
+  z-index:1000;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  color: black;
+}
+
+.header nav ul li {
+  position: relative;
+  float: left;
+}
+
+.header nav ul li a {
+  padding: 15px;
+  color: #000;
+  font-size: 16px;
+  display: block;
+}
+
+nav ul li ul {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 180px;
+  background-color: white;
+  display: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 10px 0;
+}
+nav ul li ul li {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+nav ul li:hover > ul {
+  display: initial;
+}
+
+nav ul li ul li:hover {
+  background: #e4e6ec;
+}
+
+/* Стили для формы поиска */
+#search-form {
+  display: flex;
+  align-items: center;
+}
+
+#search-input {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+#search-form button {
+  padding: 5px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+
+#search-form button:hover {
+  background-color: #555;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  color: black;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li {
+  position: relative;
+  float: left;
+}
+
+.nav-links li a {
+  padding: 15px;
+  color: #000;
+  font-size: 16px;
+  display: block;
+}
+
+nav ul li ul {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 180px;
+  background-color: white;
+  display: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 10px 0;
+}
+
+nav ul li ul li {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+nav ul li:hover > ul {
+  display: initial;
+}
+
+nav ul li ul li:hover {
+  background: #e4e6ec;
+}
+
+/* Стили для формы поиска */
+#search-form {
+  display: flex;
+  align-items: center;
+}
+
+#search-input {
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+#search-form button {
+  padding: 5px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+
+#search-form button:hover {
+  background-color: #555;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  color: black;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li {
+  position: relative;
+  float: left;
+}
+
+.nav-links li a {
+  padding: 15px;
+  color: #000;
+  font-size: 16px;
+  display: block;
+}
+
+nav ul li ul {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 180px;
+  background-color: white;
+  display: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 10px 0;
+}
+
+nav ul li ul li {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+nav ul li:hover > ul {
+  display: initial;
+}
+
+nav ul li ul li:hover {
+  background: #e4e6ec;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  margin-top: 50px;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* course_detail.css */
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #f0f0f0;
+}
+
+.sidebar ul ul {
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+.sidebar ul ul li a {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.sidebar ul ul li a:hover {
+    background-color: #e0e0e0;
+}
+
+
+.main {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  background-color: #fff;
+}
+
+.main h1 {
+  font-size: 2rem;
+  font-weight: normal;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.title img {
+  max-width: 150px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.description {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+.learn {
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+}
+
+.block {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.block h3 {
+  color: #333333;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.styled-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.styled-list li {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  color: #555555;
+  line-height: 1.6;
+}
+
+.styled-list li::before {
+  /* content: "✔️"; */
+  margin-right: 10px;
+  color: #27ae60;
+  font-size: 1.2rem;
+}

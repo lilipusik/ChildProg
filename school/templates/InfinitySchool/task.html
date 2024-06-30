@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Checker</title>
+    <link rel="stylesheet" href="{% static 'css/task.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/clike/clike.min.js"></script>
+</head>
+<body>
+    <div class="container-form">
+        <h1>{{ task.description }}</h1>
+        <form id="codeForm">
+            <div class="form-section">
+                <div class="form-left">
+                    <label for="language">Выберите язык:</label>
+                    <select id="language" name="language">
+                        <option value="python">Python</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="java">Java</option>
+                        <option value="cpp">C++</option>
+                    </select>
+                </div>
+                <div class="form-right">
+                    <label for="code">Введите свой код:</label>
+                    <textarea id="code" name="code" rows="10" cols="50" placeholder="Write your code here..."></textarea>
+                </div>
+            </div>
+            <button type="submit" class="submit-button" style="background-color: #73528d;">Проверить код</button>
+            <div id="resultContainer" class="result-container"></div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageSelect = document.getElementById('language');
+            const codeTextarea = document.getElementById('code');
+
+            const editor = CodeMirror.fromTextArea(codeTextarea, {
+                lineNumbers: true,
+                mode: languageSelect.value,
+                theme: 'default',
+                indentWithTabs: true,
+                indentUnit: 4,
+            });
+
+            languageSelect.addEventListener('change', function() {
+                const mode = languageSelect.value;
+                editor.setOption('mode', mode);
+            });
+
+            document.getElementById('codeForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const code = editor.getValue();
+                const language = languageSelect.value;
+                const resultContainer = document.getElementById('resultContainer');
+
+                fetch('{% url "task" %}?task_id={{ task.id }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({
+                        language: language,
+                        code: code,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    resultContainer.innerHTML = data.message;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/course_detail.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/clike/clike.min.js"></script>
+    <title>InfinityCode</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header" style="background-image: url('{% static 'img/login/figure_blure.png' %}')">
+            <a href="{% url 'index' %}" class="logo">INFINITY CODE</a>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'catalog' %}"><i class="fas fa-book"></i> Каталог</a></li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="#"><i class="fas fa-bars"></i> Меню</a>
+                        <ul>
+                            <li><a href="{% url 'users:profile' %}"><i class="fas fa-user"></i> Профиль</a></li>
+                            {% if user.is_superuser %}
+                            <li><a href="{% url 'admin:index' %}"><i class="fas fa-cogs"></i> Админ-панель</a></li>
+                            {% endif %}
+                            <li><a href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    {% if not user.is_authenticated %}
+                    <li><a href="{% url 'users:login' %}"><i class="fas fa-sign-in-alt"></i> Войти</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        <div class="main-content">
+            <aside class="sidebar">
+                <ul>
+                    {% for theory in theories %}
+                        <li>
+                            <a href="#section{{ forloop.counter }}">{{ theory.title }}</a>
+                            <ul>
+                                {% for task in theory.tasks.all %}
+                                    <li><a href="#task_{{ course.id }}_{{ task.id }}">{{ task.difficulty }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </aside>
+            <div class="main">
+                <div class="title">
+                    <img src="{{ course.image.url }}" alt="{{ course.name }}" />
+                    <p class="description">
+                        Добро пожаловать на курс "{{ course.name }}"!
+                        Этот курс разработан специально для молодых программистов, которые
+                        хотят научиться кодить и создавать свои первые приложения на одном
+                        из самых популярных языков программирования в мире. Мы постарались
+                        сделать курс интересным, доступным и веселым, чтобы каждый ребенок
+                        мог с легкостью освоить основы программирования и полюбить этот
+                        увлекательный процесс.
+                    </p>
+                </div>
+                <div class="learn">
+                    <div class="block for-whom">
+                        <h3>Для кого этот курс?</h3>
+                        <ul class="styled-list">
+                            <li>
+                                👦👧 Дети и подростки в возрасте от 8 до 14 лет, которые хотят
+                                научиться программировать.
+                            </li>
+                            <li>
+                                🌱 Новички в программировании: Те, кто ранее не имел опыта
+                                программирования и хочет начать с простого и понятного языка.
+                            </li>
+                            <li>
+                                🚀 Юные изобретатели: Те, кто любит создавать что-то новое и
+                                хочет узнать, как работают компьютерные программы и игры.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="block advantages">
+                        <h3>Преимущества курса:</h3>
+                        <ul class="styled-list">
+                            <li>
+                                🎮 Интерактивное обучение: Занятия включают в себя много
+                                практических упражнений и игр, которые делают обучение веселым
+                                и интересным.
+                            </li>
+                            <li>
+                                📘 Пошаговые инструкции: Все уроки разбиты на простые шаги,
+                                которые легко повторить.
+                            </li>
+                            <li>
+                                🎨 Творческий подход: Дети учатся создавать свои проекты и
+                                развивать свои идеи.
+                            </li>
+                            <li>
+                                👩‍🏫 Поддержка и наставничество: Опытные преподаватели всегда
+                                готовы помочь и поддержать на каждом этапе обучения.
+                            </li>
+                        </ul>
+                    </div>
+                    {% for theory in theories %}
+                        <div id="section{{ forloop.counter }}" class="theory-section" style="display: none;">
+                            <h2>{{ theory.title }}</h2>
+                            <p>{{ theory.theory | linebreaksbr }}</p>
+                        </div>
+                        {% for task in theory.tasks.all %}
+                          <div id="task_{{ course.id }}_{{ task.id }}" class="task-section" style="display: none;">
+                        <h3>{{ task.description }}</h3>
+                        <form method="post" action="{% url 'task' %}">
+                            {% csrf_token %}
+                        </form>
+                        </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const theoryLinks = document.querySelectorAll('.sidebar ul li a');
+    const theorySections = document.querySelectorAll('.theory-section');
+    const taskLinks = document.querySelectorAll('.sidebar ul ul li a');
+    const forWhomBlock = document.querySelector('.for-whom');
+    const advantagesBlock = document.querySelector('.advantages');
+    const descriptionBlock = document.querySelector('.title');
+    const mainContent = document.querySelector('.main-content');
+
+    theoryLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substr(1);
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                forWhomBlock.style.display = 'none';
+                advantagesBlock.style.display = 'none';
+                descriptionBlock.style.display = 'none';
+
+                theorySections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                targetSection.style.display = 'block';
+            }
+        });
+    });
+
+ taskLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const taskId = this.getAttribute('href').split('_')[2];
+        const taskUrl = "{% url 'task' %}" + `?course_id={{ course.id }}&task_id=${taskId}`;
+
+fetch(taskUrl)
+    .then(response => response.text())
+    .then(html => {
+        // Create a new div to hold the task content
+        const taskDiv = document.createElement('div');
+        {% comment %} taskDiv.classList.add('container-form'); {% endcomment %}
+        taskDiv.innerHTML = html;
+
+        // Append the task content to main content
+        mainContent.querySelector('.main').innerHTML = ''; // Clear previous content if needed
+        mainContent.querySelector('.main').appendChild(taskDiv);
+
+        // Initialize CodeMirror for the code textarea in the loaded content
+        const codeTextarea = taskDiv.querySelector('textarea');
+        const languageSelect = taskDiv.querySelector('#language');
+        const editor = CodeMirror.fromTextArea(codeTextarea, {
+            lineNumbers: true,
+            mode: languageSelect.value,
+            theme: 'default',
+            indentWithTabs: true,
+            indentUnit: 4,
+        });
+
+        // Reinitialize submit handler for the new form
+        const codeForm = taskDiv.querySelector('#codeForm');
+            codeForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Предотвращаем переход по умолчанию
+
+            const code = editor.getValue();
+            const language = languageSelect.value;
+            const resultContainer = taskDiv.querySelector('#resultContainer');
+            const taskUrl = '{% url "task" %}?task_id=' + taskId;
+
+            fetch(taskUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({
+                language: language,
+                code: code,
+            }),
+            })
+            .then(response => response.json())
+            .then(data => {
+            resultContainer.innerHTML = data.message;
+            })
+            .catch(error => {
+            console.error('Error:', error);
+            });
+        });
+    })
+    .catch(error => {
+        console.error('Error loading task:', error);
+    });
+    });
+});
+});
+    </script>
+</body>
+</html>
