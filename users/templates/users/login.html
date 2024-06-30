@@ -1,0 +1,33 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block form %}
+<form class="forms" action="{% url 'users:login' %}" method="post">
+    {% if messages or form.non_field_errors %}
+      <div class="profile-form">
+        {% if messages  %}
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        {% else %}
+            {{ form.non_field_errors }}
+        {% endif %}
+        
+        </div>
+    {% endif %}
+    <h1>Вход</h1>
+    {% csrf_token %}
+    {{ form.username }}
+    {{ form.password }}
+    <button type="submit" class="btn">Войти</button>
+    <a href="forget_password.html">Забыли пароль?</a>
+    <p>
+        Еще нет аккаунта?
+        <a href="{% url 'users:register' %}">Зарегистрироваться</a>
+    </p>
+</form>
+{% endblock %}

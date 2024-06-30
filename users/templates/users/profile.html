@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="{% static 'css/profile.css' %}" rel="stylesheet">
+    <title>Profile</title>
+</head>
+<body style="background-image: url('{% static 'img/login/bc3.png' %}')">
+<div class="container-fluid">
+    <div class="header" style="background-image: url('{% static 'img/login/figure_blure.png' %}')">
+        <a href="{% url 'index' %}" class="logo">INFINITY CODE</a>
+        <nav>
+            <ul>
+                <li>
+                    <a href="{% url 'catalog' %}"><i class="fas fa-book"></i> Каталог</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-bars"></i> Меню</a>
+                    <ul>
+                        <li>
+                            <a href="{% url 'users:profile' %}"><i class="fas fa-user"></i> Профиль</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin:index' %}"><i class="fas fa-cogs"></i> Админ-панель</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+                        </li>
+                    </ul>
+                </li>
+                {% if not user.is_authenticated %}
+                    <li><a href="{% url 'users:login' %}"><i class="fas fa-sign-in-alt"></i> Войти</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-9">
+            <div class="main">
+                <div class="profile-image">
+                    <img src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'img/profile.png'%} {% endif %}" alt="Profile Picture">
+                </div>
+                <div class="profile-form">
+                    <form action="{% url 'users:profile' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label for="name">Имя:</label>
+                        {{ form.first_name }}
+                        <label for="name">Фамилия:</label>
+                        {{form.last_name}}
+                        <label for="username">Имя пользователя:</label>
+                        {{ form.username }}
+                        <label for="email">Электронная почта:</label>
+                        {{ form.email }}
+                        <div class="form-row mb-2">
+                            <div class="col-lg-12">
+                                <div class="custom-file">
+                                    {{form.image}}
+                                    <label class="custom-file-label" for="userAvatar">Выберите изображение</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit">Сохранить изменения</button>
+                    </form>
+                </div>
+        <div class="favorite-courses-block">
+            <h3>Избранные курсы</h3>
+            <ul class="favorite-courses">
+                {% for favorite in favorite_courses %}
+                    <li>
+                        <a href="{% url 'course_detail' favorite.course.id %}">
+                            <img src="{{ favorite.course.image.url }}" alt="{{ favorite.course.name }}" class="course-image">
+                            <span>{{ favorite.course.name }}</span>
+                        </a>
+                         <button class="like-button liked" data-course-id="{{ favorite.course.id }}">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </li>
+                {% empty %}
+                    <li>У вас нет избранных курсов.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        </div>
+</div>
+
+    </div>
+</div>
+<script src="{% static 'js/search.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const likeButtons = document.querySelectorAll('.like-button');
+
+        likeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const courseId = this.getAttribute('data-course-id');
+                const url = `{% url 'toggle_like' 0 %}`.replace('0', courseId);
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    credentials: 'same-origin',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.liked) {
+                        this.classList.add('liked');
+                    } else {
+                        this.classList.remove('liked');
+                    }
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>
